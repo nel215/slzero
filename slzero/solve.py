@@ -1,8 +1,13 @@
 import numpy as np
 
 
-def solve(A, x):
-    sigma_min = 1e-6
+def solve(A, x, min_sigma=1e-6):
+    '''
+    Parameters
+    ----------
+    min_sigma : float, `1e-6` by default
+        Quality parameter of approximation. Lower `min_sigma` is better approximation.
+    '''
     L = 5
     max_iter = 10
     c = 0.75
@@ -21,7 +26,7 @@ def solve(A, x):
             s = s - np.dot(A_inv, rhs)
         s_hat = s
         sigma *= c
-        if np.all(sigma < sigma_min):
+        if np.all(sigma < min_sigma):
             break
 
     return s_hat
